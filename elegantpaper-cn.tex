@@ -1,0 +1,84 @@
+%!TEX program = xelatex
+% 完整编译方法 1 pdflatex -> bibtex -> pdflatex -> pdflatex
+% 完整编译方法 2: xelatex -> bibtex -> xelatex -> xelatex
+\documentclass[lang=cn,11pt]{elegantpaper}
+
+\title{关于微积分的基本技巧}
+\author{%
+	%\href{https://ddswhu.me/}
+	{せいひつ}}
+
+% 不需要版本信息，直接注释即可
+%\version{0.07}
+% 不需要时间信息的话，需要把 \today 删除。
+\date{\today}
+
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\trm}[1]{\textrm{#1}}
+\newcommand{\cmt}[1]{}
+
+% 如果想修改参考文献样式，请把这行注释掉
+%\usepackage[authoryear]{gbt7714}  % 国标
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\begin{center} 本文档类名为 \lstinline{}{elegantpaper}，不是作者所作，也没有修改些什么 \end{center}
+\noindent 这是一篇在基本计算上所完成的札记，内容大致包含一般会出现的各式极限、微分与积分的计算，也就是从各教材中（在主观意义下）提炼的重点知识，希望不会太长
+\end{abstract}
+
+\section{前言}
+就像在教科书中所看到那样，我们在做运算时会遇到几类最基本的函数：\tit{有理函数，三角函数，幂级数}，统称为\tbf{代数}与\tbf{初等函数}。尽管在做一些超越运算 \tit{- 如积分 -} 的时候，它们最终得到的结果也许是\tit{超越}的，但一般来说亦可以用统一的形式求其极限与微分/导数。
+%\tit{基本原则：把所有函数化为形如有理函数的形式，即幂级数的比值。}
+
+我们可以在此之上套用许多方法，代表者如\trm{Taylor}\tit{展开、三角反/%
+%\footnote{符号 “ a / b ” 代表 “ a 与 ab ”，如\tit{反/三角函数}代表\tit{反三角与三角函数}}
+代换、双曲反/代换}，本文中会详细讨论它们的应用范围与主要用途。简述如下：（文档架构）
+\begin{enumerate}
+	\item 所需的引理与结论：注释、摘记，证明不常见或课本略去不证的命题/定理，给出思路
+	\item 最一般的结果：代数函数的极限与导数，代数函数的分类
+	\item 有理函数：部分分式分解、积分，三角变换初探
+%	\item 复化：用复方法求解实积分的一般形式，三角变换的理论
+	\item 代数函数：超越函数的出现，有理化，几类标准积分
+\end{enumerate}
+
+\section{绪论}
+%每一个小节都是一个关键的定理，并且不提供例子与用途上的拓展
+\subsection{有理化}
+\begin{theorem}
+	以下论述等价：令\tit{多项式}为\tbf{实系数幂级数}，则
+	\begin{enumerate}
+		\item 所有有理函数都可以化为形如下述三者的线性组合：
+		\[
+			a_kx^k \; \text{,} \; \frac{A}{(x+a)^n} \; \text{,} \; \frac{Bx+C}{(x^2+px+q)^m}
+		\]
+		
+		\item 所有（首一）多项式都可视为一次与二次式的乘积，即
+		\[
+			P(x) = \prod_i(x-x_i)^{k_i}\prod_j(x^2+p_jx+q_j)^{k_j} \; \text{，其中} k_i, k_j \; \text{是相关表达式的重根数}.
+		\]
+		
+		\item 所有 $ \mathrm{deg}(P) = n $ 的多项式 $ P(x) $ 都有 $ n $ 个根（d'Alembert 定理），同时其复根的共轭亦为其根
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+由于 d'Alembert 定理，我们可以把任何一个多项式写为以下标准型：
+\[
+P(x) = a_0(x-x_1)(x-x_2)\dots(x-x_n) \; \text{，其中} \; \mathrm{deg}(P) = n.
+\]
+再由共轭复根定理，上述多项式可以改写为
+\begin{align*}
+	P(x) &= a_0\prod_{i=1}^{m_1}(x-x_i)^{k_i} \, \cdot \, \prod_{j=1}^{m_2}(x-(u+\mathrm{i}v)(x-(u-\mathrm{i}v)))^{k_j}\\
+	&= a_0\prod_{i=1}^{m_1}(x-x_i)^{k_i} \, \cdot \, \prod_{j=1}^{m_2}(x^2-(2u)x+(u^2+v^2))^{k_j}\\
+	&= a_0\prod_i(x-x_i)^{k_i}\prod_j(x^2+p_jx+q_j)^{k_j}
+\end{align*}
+\end{proof}
+
+% 如果想修改参考文献样式（非国标），请把下行取消注释，并换成合适的样式（比如 unsrt，plain 样式）。
+%\bibliographystyle{aer}
+%\bibliography{wpref}
+
+\end{document}
